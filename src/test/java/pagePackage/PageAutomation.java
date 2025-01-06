@@ -66,6 +66,45 @@ private void find(String url,String txt) {
 	
 
 }
+	@Test
+public void login() throws IOException {
+	driver.findElement(By.xpath("//*[@id=\"navbarNavDropdown\"]/div[3]/a")).click();
+	FileInputStream fi=new FileInputStream("C:\\Users\\user\\Downloads\\Pass1.xlsx");
+	XSSFWorkbook wk=new XSSFWorkbook(fi);
+	XSSFSheet sh=wk.getSheet("Sheet1");
+	int rowCount=sh.getLastRowNum();
+	
+	for(int i=1;i<=rowCount;i++) {
+		String username=sh.getRow(i).getCell(0).getStringCellValue();
+		String pass=sh.getRow(i).getCell(1).getStringCellValue();
+		driver.findElement(By.id("username")).sendKeys(username);
+		driver.findElement(By.id("password")).sendKeys(pass);
+		driver.findElement(By.id("login-submit")).click();
+		
+		//driver.navigate().to("https://www.inmotionhosting.com/");
+	}
+	driver.switchTo().defaultContent();
+
+}
+@Test
+public void verify() {
+	String s=driver.getCurrentUrl();
+	String exp="abc";
+	if(s.equals(exp))
+	{
+		System.out.println("Pass");
+	}
+	else {
+		System.out.println("Fail");
+	
+}
+}
+
+@Test
+public void title() {
+	String a=driver.getTitle();
+	System.out.println("Title is "+a);
+}
 }
 
 
